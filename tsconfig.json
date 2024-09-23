@@ -14,8 +14,7 @@
             "@api/*": [
                 "api/*"
             ]
-        },
-        "noEmit": true
+        }
     },
     "include": [
         "api/**/*"
