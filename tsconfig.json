@@ -3,7 +3,7 @@
         "target": "es2017",
         "module": "commonjs",
         "outDir": "./dist",
-        "rootDir": "./api",
+        "rootDir": "./",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
@@ -17,7 +17,8 @@
         }
     },
     "include": [
-        "api/**/*"
+        "api/**/*",
+        "src/**/*"
     ],
     "exclude": [
         "node_modules",
