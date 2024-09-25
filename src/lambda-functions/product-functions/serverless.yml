@@ -1,0 +1,55 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: jaimealexdev
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: tj-marketplace
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: products-test-function
+
+stages:
+  default:
+    params:
+      tableName: "tj-market-products"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: arn:aws:dynamodb:us-east-1:846928055763:table/tj-market-products
+        - Effect: Allow
+          Action: 
+            - dynamodb:Query
+          Resource: 
+            - arn:aws:dynamodb:us-east-1:846928055763:table/tj-market-products
+            - arn:aws:dynamodb:us-east-1:846928055763:table/tj-market-products/index/title-index
+  environment:
+    USERS_TABLE: ${param:tableName}
+
+functions:
+  api:
+    handler: handler.handler
+    events:
+      - httpApi: "*"
+
+# resources:
+#   Resources:
+#     UsersTable:
+#       Type: AWS::DynamoDB::Table
+#       Properties:
+#         AttributeDefinitions:
+#           - AttributeName: userId
+#             AttributeType: S
+#         KeySchema:
+#           - AttributeName: userId
+#             KeyType: HASH
+#         BillingMode: PAY_PER_REQUEST
+#         TableName: ${param:tableName}

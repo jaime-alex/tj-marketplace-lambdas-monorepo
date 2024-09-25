@@ -1,0 +1,11 @@
+{
+  "name": "products-test-function",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "3.658.0",
+    "@aws-sdk/lib-dynamodb": "3.658.0",
+    "express": "4.21.0",
+    "serverless-http": "3.2.0"
+  }
+}
