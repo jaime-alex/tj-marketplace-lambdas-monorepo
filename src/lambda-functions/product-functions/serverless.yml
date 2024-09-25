@@ -32,7 +32,7 @@ provider:
             - arn:aws:dynamodb:us-east-1:846928055763:table/tj-market-products
             - arn:aws:dynamodb:us-east-1:846928055763:table/tj-market-products/index/title-index
   environment:
-    USERS_TABLE: ${param:tableName}
+    USERS_TABLE: "tj-market-products"
 
 functions:
   api:
