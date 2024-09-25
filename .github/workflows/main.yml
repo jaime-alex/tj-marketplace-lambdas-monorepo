@@ -3,9 +3,9 @@
 name: Octo Organization CI
 
 on:
-  workflow_dispatch:
   push:
     branches: [ $default-branch ]
+  repository_dispatch:
 
 jobs:
   build:
