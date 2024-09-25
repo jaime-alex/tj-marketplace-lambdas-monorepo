@@ -4,8 +4,9 @@ name: Octo Organization CI
 
 on:
   push:
-    branches: [ $default-branch ]
-  repository_dispatch:
+    branches:
+      - $default-branch  # Adjust this to your specific branch, e.g., 'main' or 'develop'
+  workflow_dispatch:
 
 jobs:
   build:
