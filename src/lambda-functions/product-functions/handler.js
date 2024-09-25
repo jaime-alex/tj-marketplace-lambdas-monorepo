@@ -24,7 +24,7 @@ app.get("/products", async (req, res) => {
   
   let params = {
     TableName: 'tj-market-products',
-    Limit: 20
+    Limit: 2
   };
 
   // If the request contains LastEvaluatedKey, add it to params for pagination
