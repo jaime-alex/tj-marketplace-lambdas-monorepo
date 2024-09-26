@@ -56,7 +56,7 @@ app.get("/products/:title", async (req, res) => {
   let params = {
     TableName: 'tj-market-products',
     IndexName: 'title-index', // The name of your global secondary index
-    KeyConditionExpression: 'title = :title',
+    KeyConditionExpression: 'contains(title, :title)',
     ExpressionAttributeValues: {
       ':title': req.params.title.toString(),
     },
