@@ -39,6 +39,18 @@ functions:
     handler: products-handler.handler
     events:
       - httpApi: "*"
+    cors:
+            origin: '*'
+            allowHeaders:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+            allowMethods: 
+              - GET
+              - POST
+              - OPTIONS
 
 # resources:
 #   Resources:
