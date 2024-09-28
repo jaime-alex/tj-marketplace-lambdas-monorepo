@@ -2,9 +2,10 @@ name: Call tj-marketplace Website Every 30 Minutes
 
 # Controls when the action will run
 on:
-  schedule:
-    # Run every 2 hours (at minute 0 of every 2nd hour)
-    - cron: '*/30 * * * *'
+  workflow_dispatch:
+  # schedule:
+  #   # Run every 2 hours (at minute 0 of every 2nd hour)
+  #   - cron: '*/30 * * * *'
 
 # Defines the jobs that will run
 jobs:
