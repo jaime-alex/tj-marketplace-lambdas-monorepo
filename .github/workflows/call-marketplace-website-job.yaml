@@ -1,0 +1,22 @@
+name: Call tj-marketplace Website Every 2 Hours
+
+# Controls when the action will run
+on:
+  schedule:
+    # Run every 2 hours (at minute 0 of every 2nd hour)
+    - cron: "0 */2 * * *"
+
+# Defines the jobs that will run
+jobs:
+  call-website:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repo (optional if you don't need to work with the repo code)
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Make an HTTP request to a website
+      - name: Call the tj-marketplace website
+        run: |
+          curl -X GET https://tj-market-place.vercel.app/
