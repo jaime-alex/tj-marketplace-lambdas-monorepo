@@ -38,19 +38,6 @@ functions:
       - httpApi:
           path: "*"
           method: "*"
-          cors:
-            allowedOrigins:
-              - "https://tj-market-place.vercel.app"
-            allowedHeaders:
-              - Content-Type
-              - X-Amz-Date
-              - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-            allowedMethods:
-              - GET
-              - POST
-              - OPTIONS
 
 # Configure HTTP API CORS at the API Gateway level
 resources:
