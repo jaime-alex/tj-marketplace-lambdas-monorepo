@@ -1,4 +1,4 @@
-name: Call tj-marketplace Website Every 30 Minutes
+name: Call Website Every 30 Minutes
 
 # Controls when the action will run
 on:
