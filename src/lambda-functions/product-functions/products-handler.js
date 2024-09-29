@@ -60,7 +60,8 @@ app.get("/products/:title", async (req, res) => {
     ExpressionAttributeValues: {
       ':title': req.params.title.toString(),
     },
-    Limit: 20
+    Limit: 20,
+    ProjectionExpression: '*'
   };
 
 
