@@ -1,8 +1,5 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: jaimealexdev
-# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
 app: tj-marketplace
-# "service" is the name of this project. This will also be added to your AWS resource names.
 service: products-function
 
 stages:
@@ -38,30 +35,41 @@ functions:
   api:
     handler: products-handler.handler
     events:
-      - httpApi: "*"
-    cors:
-      origin: '*'
-      allowHeaders:
-        - Content-Type
-        - X-Amz-Date
-        - Authorization
-        - X-Api-Key
-        - X-Amz-Security-Token
-      allowMethods: 
-        - GET
-        - POST
-        - OPTIONS
+      - httpApi:
+          path: "*"
+          method: "*"
+          cors:
+            allowedOrigins:
+              - "*"
+            allowedHeaders:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+            allowedMethods:
+              - GET
+              - POST
+              - OPTIONS
 
-# resources:
-#   Resources:
-#     UsersTable:
-#       Type: AWS::DynamoDB::Table
-#       Properties:
-#         AttributeDefinitions:
-#           - AttributeName: userId
-#             AttributeType: S
-#         KeySchema:
-#           - AttributeName: userId
-#             KeyType: HASH
-#         BillingMode: PAY_PER_REQUEST
-#         TableName: ${param:tableName}
+# Configure HTTP API CORS at the API Gateway level
+resources:
+  Resources:
+    HttpApiCors:
+      Type: AWS::ApiGatewayV2::Api
+      Properties:
+        Name: HttpApi
+        ProtocolType: HTTP
+        CorsConfiguration:
+          AllowOrigins:
+            - '*'
+          AllowHeaders:
+            - Content-Type
+            - X-Amz-Date
+            - Authorization
+            - X-Api-Key
+            - X-Amz-Security-Token
+          AllowMethods:
+            - GET
+            - POST
+            - OPTIONS
