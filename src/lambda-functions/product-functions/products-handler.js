@@ -56,9 +56,9 @@ app.get("/products/:title", async (req, res) => {
   let params = {
     TableName: 'tj-market-products',
     IndexName: 'title-enabled-index', // The name of your global secondary index
-    FilterExpression: 'contains(title, :title)',
+    FilterExpression: 'contains(title_search, :title_search)',
     ExpressionAttributeValues: {
-      ':title': req.params.title.toString(),
+      ':title_search': req.params.title.toString(),
     },
     Limit: 20,
     ProjectionExpression: 'id, title, enabled, category, images, title_search'
