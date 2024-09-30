@@ -24,6 +24,7 @@ app.get("/products", async (req, res) => {
   
   let params = {
     TableName: 'tj-market-products',
+    IndexName: 'title-enabled-index',
     Limit: 20
   };
 
