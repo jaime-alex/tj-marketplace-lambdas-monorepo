@@ -19,6 +19,10 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 app.use(express.json());
 
+app.get("/products/data/info", () => {
+  res.status(200).json({ message: "Products endpoint information." });
+})
+
 app.get("/products", async (req, res) => {
   const { LastEvaluatedKey } = req.query;  // Extract the LastEvaluatedKey from query parameters (if exists)
   
