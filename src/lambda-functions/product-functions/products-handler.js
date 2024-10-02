@@ -19,7 +19,7 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 app.use(express.json());
 
-app.get("/products/data/info", () => {
+app.get("/products/data/info", (_, res) => {
   res.status(200).json({ message: "Products endpoint information." });
 })
 
