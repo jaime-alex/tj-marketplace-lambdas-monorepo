@@ -1,4 +1,5 @@
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
+const compression = require('compression')
 
 const {
   DynamoDBDocumentClient,
@@ -12,6 +13,8 @@ const express = require("express");
 const serverless = require("serverless-http");
 
 const app = express();
+
+app.use(compression())
 
 const USERS_TABLE = process.env.USERS_TABLE;
 const client = new DynamoDBClient({ region: "us-east-1" });
