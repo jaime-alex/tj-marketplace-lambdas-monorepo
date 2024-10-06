@@ -1,86 +1,19 @@
-const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const compression = require('compression')
+const express = require("express")
+const serverless = require("serverless-http")
+
 const {getAllProducts} = require('./routes/all-products')
-
-const {
-  DynamoDBDocumentClient,
-  PutCommand,
-  ScanCommand
-} = require("@aws-sdk/lib-dynamodb");
-
-const express = require("express");
-const serverless = require("serverless-http");
+const {searchProducts} = require('./routes/search-products')
 
 const app = express();
 
 app.use(compression())
-
-const USERS_TABLE = process.env.USERS_TABLE;
-const client = new DynamoDBClient({ region: "us-east-1" });
-const docClient = DynamoDBDocumentClient.from(client);
-
 app.use(express.json());
 
-app.get("/products/data/info", (_, res) => {
-  res.status(200).json({ message: "Products endpoint information." });
-})
-
 app.get("/products", getAllProducts);
+app.get("/products/:title", searchProducts);
 
-app.get("/products/:title", async (req, res) => {
-  console.log("title param: ", req.params.title)
-  let params = {
-    TableName: 'tj-market-products',
-    IndexName: 'title-enabled-index', // The name of your global secondary index
-    FilterExpression: 'contains(title_search, :title_search)',
-    ExpressionAttributeValues: {
-      ':title_search': req.params.title.toString(),
-    },
-    Limit: 20,
-    ProjectionExpression: 'id, title, enabled, category, images, title_search'
-  };
-
-
-  try {
-    const command = new ScanCommand(params);
-    const response = await client.send(command);
-    if (response) {
-      res.json(response);
-    } else {
-      res
-        .status(404)
-        .json({ error: 'Could not find user with provided "userId"' });
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Could not retrieve user" });
-  }
-});
-
-app.post("/users", async (req, res) => {
-  const { userId, name } = req.body;
-  if (typeof userId !== "string") {
-    res.status(400).json({ error: '"userId" must be a string' });
-  } else if (typeof name !== "string") {
-    res.status(400).json({ error: '"name" must be a string' });
-  }
-
-  const params = {
-    TableName: USERS_TABLE,
-    Item: { userId, name },
-  };
-
-  try {
-    const command = new PutCommand(params);
-    await docClient.send(command);
-    res.json({ userId, name });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Could not create user" });
-  }
-});
-
-app.use((req, res, next) => {
+app.use((_, res, _) => {
   return res.status(404).json({
     error: "Not Found",
   });
